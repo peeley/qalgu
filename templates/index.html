@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Translator </title>
+	</head>
+	<body>
+		<h1>Welcome to Translator! </h1>
+		<p>Enter English to be translated:</p>
+		<form action='/translate' id='inputForm' method='post'>
+			<textarea name='input' cols="50" rows="7" wrap='hard' required autofocus></textarea>
+			<input type='submit' value='Submit'>
+		</form>
+		{% if result %}
+			<p> Translated: "{{result}}" </p>
+		{% endif %}
+	</body>
+<html>
