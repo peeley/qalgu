@@ -1,44 +1,36 @@
 #!/usr/bin/python
 
 import torch, pickle
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from src import evaluateSeq2Seq, langModel
 
 app = Flask(__name__)
 
-print('Loading saved resources...')
-savedEncoder = torch.load('src/encoder.pt')
-savedDecoder = torch.load('src/decoder.pt')
-with open('src/eng.p', 'rb') as testFile:
-    testLang = pickle.load(testFile)
-with open('src/ipq.p', 'rb') as targetFile:
-    targetLang = pickle.load(targetFile)
-print('Resources loaded.')
-
 @app.route('/')
-def index(result = 'Please enter phrase to be translated.'):
+def index(result = ""):
     return render_template('index.html', result = result)
 
-@app.route("/translate", methods = ['GET','POST'])
+@app.route("/translate", methods = ['GET'])
 def translate():
-    if request.method == 'POST':
-        inputString = [request.form['input']]
-        translated = evaluateSeq2Seq.evaluate(savedEncoder, savedDecoder, inputString, testLang, targetLang)
-        translated = ' '.join(translated)
-        if translated:
-            return index(translated)
-        else:
-            return index('ERROR: word not in vocabulary')
-    else:
-        return index()
+    string = request.args['q']
+    inputString = [string]
+    translated = evaluateSeq2Seq.evaluate(inputString)
+    translated = ' '.join(translated)
+    return jsonify(translated)
 
-@app.errorhandler(404)
-def pageNotFound(error):
-    return render_template('404.html')
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 @app.route('/warn')
 def warn():
     return render_template('warn.html')
 
+@app.errorhandler(404)
+def pageNotFound(error):
+    return render_template('404.html')
+
 if __name__ == '__main__':
     app.run()
+
+# TODO: have html connect to translate API

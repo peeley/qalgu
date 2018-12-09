@@ -3,6 +3,7 @@
 import torch, json, pickle 
 from src import seq2seq, langModel
 
+print('Loading saved resources...')
 with open('src/params.json') as paramsFile:
     params = json.load(paramsFile)
 hSize    = params['hSize']
@@ -10,14 +11,23 @@ maxWords = params['maxWords']
 layers   = params['layers']
 length   = params['dataSentenceLength']
 
+encoder = torch.load('src/encoder.pt')
+decoder = torch.load('src/decoder.pt')
+with open('src/eng.p', 'rb') as testFile:
+    testLang = pickle.load(testFile)
+with open('src/ipq.p', 'rb') as targetFile:
+    targetLang = pickle.load(targetFile)
+print('Resources loaded.') 
+
 if torch.cuda.is_available():
     device = torch.device('cuda')
     cuda = True
 else:
     device = torch.device('cpu')
     cuda = False
+print(f"Using device {device}")
 
-def evaluate(encoder, decoder, rawString, testLang, targetLang):
+def evaluate(rawString):
     with torch.no_grad():
         for item in range(len(rawString)):
             inputString = (rawString[item])
