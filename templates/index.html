@@ -1,22 +1,26 @@
 {% extends "base.html" %}
 
 {% block body %}
+
 <h1>Welcome to Qalgu! </h1>
 <p>Enter English to be translated:</p>
 <form id='input'>
     <textarea id='inputText' cols="50" rows="7" wrap='hard' required autofocus></textarea>
     <input type='button' value='Translate' onclick="submitToAPI()">
 </form>
-<p id="output"> Inupiaq: {{result}} </p>
+<p > Inupiaq: </p>
+<p id="output"> {{result}} </p>
+
 <script type="text/javascript">
     const submitToAPI= async () =>{
-        let form = document.getElementById("input");
+        let form = document.getElementById("input").elements['inputText'];
         let result = document.getElementById("output");
-        let formText = form.elements["inputText"].value;
+        let formText = form.value;
         fetch("./translate?q=" + formText)
             .then( (res)=>{
                 res.json().then( (data) =>{
                     result.innerHTML = data;
+                    form.value = "";
                 });
             })   
             .catch((err) => {
@@ -25,4 +29,5 @@
             });
     }
 </script>
+
 {% endblock %}

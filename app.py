@@ -33,4 +33,3 @@ def pageNotFound(error):
 if __name__ == '__main__':
     app.run()
 
-# TODO: have html connect to translate API
