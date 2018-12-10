@@ -4,18 +4,18 @@ import torch, json, pickle
 from src import seq2seq, langModel
 
 print('Loading saved resources...')
-with open('src/params.json') as paramsFile:
+with open('src/models/params.json') as paramsFile:
     params = json.load(paramsFile)
 hSize    = params['hSize']
 maxWords = params['maxWords']
 layers   = params['layers']
 length   = params['dataSentenceLength']
 
-encoder = torch.load('src/encoder.pt')
-decoder = torch.load('src/decoder.pt')
-with open('src/eng.p', 'rb') as testFile:
+encoder = torch.load('src/models/encoder.pt')
+decoder = torch.load('src/models/decoder.pt')
+with open('src/models/eng.p', 'rb') as testFile:
     testLang = pickle.load(testFile)
-with open('src/ipq.p', 'rb') as targetFile:
+with open('src/models/ipq.p', 'rb') as targetFile:
     targetLang = pickle.load(targetFile)
 print('Resources loaded.') 
 

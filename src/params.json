@@ -1,1 +1,0 @@
-{"size": 1000, "epochs": 50, "dataSentenceLength": 15, "maxWords": 50, "hSize": 128, "layers": 4, "batch": 100, "reverse": false, "lengthScheduling": false, "learningRate": 0.005}
