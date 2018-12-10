@@ -4,13 +4,25 @@
 <h1>Welcome to Qalgu! </h1>
 <p>Enter English to be translated:</p>
 <form id='input'>
-    <textarea name='input' cols="50" rows="7" wrap='hard' required autofocus></textarea>
-    <input type='submit' value='Translate' onclick="submitToAPI()">
+    <textarea id='inputText' cols="50" rows="7" wrap='hard' required autofocus></textarea>
+    <input type='button' value='Translate' onclick="submitToAPI()">
 </form>
 <p id="output"> Inupiaq: {{result}} </p>
 <script type="text/javascript">
-    function submitToAPI(){
+    const submitToAPI= async () =>{
         let form = document.getElementById("input");
+        let result = document.getElementById("output");
+        let formText = form.elements["inputText"].value;
+        fetch("./translate?q=" + formText)
+            .then( (res)=>{
+                res.json().then( (data) =>{
+                    result.innerHTML = data;
+                });
+            })   
+            .catch((err) => {
+                console.log(err);
+                return;
+            });
     }
 </script>
 {% endblock %}
