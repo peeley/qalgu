@@ -7,8 +7,8 @@ from src import evaluateSeq2Seq, langModel
 app = Flask(__name__)
 
 @app.route('/')
-def index(result = ""):
-    return render_template('index.html', result = result)
+def index():
+    return render_template('index.html')
 
 @app.route("/translate", methods = ['GET'])
 def translate():
@@ -16,6 +16,8 @@ def translate():
     inputString = [string]
     translated = evaluateSeq2Seq.evaluate(inputString)
     translated = ' '.join(translated)
+    print(f'Untrimmed: {translated}')
+    translated = translated.replace('@', '')
     return jsonify(translated)
 
 @app.route('/about')

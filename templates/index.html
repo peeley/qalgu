@@ -9,25 +9,10 @@
     <input type='button' value='Translate' onclick="submitToAPI()">
 </form>
 <p > Inupiaq: </p>
-<p id="output"> {{result}} </p>
+<p id="output"></p>
 
-<script type="text/javascript">
-    const submitToAPI= async () =>{
-        let form = document.getElementById("input").elements['inputText'];
-        let result = document.getElementById("output");
-        let formText = form.value;
-        fetch("./translate?q=" + formText)
-            .then( (res)=>{
-                res.json().then( (data) =>{
-                    result.innerHTML = data;
-                    form.value = "";
-                });
-            })   
-            .catch((err) => {
-                console.log(err);
-                return;
-            });
-    }
-</script>
+<div id='root'></div>
+
+<script type="text/babel" src={{ url_for('static', filename='index.js') }}></script>
 
 {% endblock %}
