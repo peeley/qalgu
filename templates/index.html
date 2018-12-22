@@ -1,12 +1,19 @@
 {% extends "base.html" %}
 
 {% block body %}
-
-<h1>Welcome to Qalgu! </h1>
-<p>Enter English to be translated:</p>
-
+<style>
+#greeter{
+	padding:0;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+</style>
+<div id="greeter">
+	<h1>Welcome to Qalgu! </h1>
+	<p>Enter English to be translated:</p>
+</div>
 <div id='root'></div>
 
 <script type="text/babel" src={{ url_for('static', filename='index.js') }}></script>
-
 {% endblock %}

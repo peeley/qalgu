@@ -5,21 +5,28 @@ class TranslateInput extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            text : "Enter text here!",
+            text : null,
             output : "Translated text will appear here!"
         };
     }
     render(){
         return(
-            <div>
-                <form id='input' onSubmit={this.submitToAPI}>
-                    <textarea id='inputText' cols="50" rows="7" wrap='hard' 
-						value={this.state.text} onChange={this.handleChange}></textarea>
-                    <input type='submit' value='Translate'/>
-                </form>
-                <p> Inupiaq: </p>
-                <textarea value={this.state.output} onChange={() => null}></textarea>
-            </div>
+			<form id='input' onSubmit={this.submitToAPI}>
+				<div class="container">
+				<div class="row">
+					<div class="col">
+						<textarea id='inputText' cols="3" rows="5" wrap='hard' class=' form-control'
+							value={this.state.text} onChange={this.handleChange}
+							placeholder={this.state.text === null ? "Enter text here!" : ""}>
+						</textarea>
+					</div>
+					<div class="col">
+						<p> Inupiaq: </p>
+						<p>{this.state.output}</p>
+					</div>
+				</div>
+				</div>
+			</form>
         );
     }
     handleChange = (event) => {
