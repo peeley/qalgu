@@ -1,4 +1,4 @@
-const URL = 'http://192.168.1.139:5000/translate?q=';
+const URL = '/translate?q=';
 let root = document.getElementById("root");
 
 class TranslateInput extends React.Component{

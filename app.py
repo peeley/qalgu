@@ -17,16 +17,12 @@ def translate():
     translated = evaluateSeq2Seq.evaluate(inputString)
     translated = ' '.join(translated)
     print(f'Untrimmed: {translated}')
-    translated = translated.replace('@', '')
+    translated = translated.replace('@', '').replace('/end/','')
     return jsonify(translated)
 
 @app.route('/about')
 def about():
     return render_template('about.html')
-
-@app.route('/warn')
-def warn():
-    return render_template('warn.html')
 
 @app.errorhandler(404)
 def pageNotFound(error):

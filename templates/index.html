@@ -3,7 +3,8 @@
 {% block body %}
 <style>
 #greeter{
-	padding:0;
+	padding-top: 15px;
+	padding-bottom: 30px;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
@@ -15,5 +16,6 @@
 </div>
 <div id='root'></div>
 
-<script type="text/babel" src={{ url_for('static', filename='index.js') }}></script>
+<script type="text/babel" src={{ url_for('static', filename='js/index.js') }}></script>
+<p> Learn more about the website <a href='/about'/>here</a>.</p>
 {% endblock %}
