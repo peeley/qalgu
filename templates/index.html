@@ -1,21 +1,17 @@
 {% extends "base.html" %}
 
 {% block body %}
-<style>
-#greeter{
-	padding-top: 15px;
-	padding-bottom: 30px;
-	margin-left: auto;
-	margin-right: auto;
-	text-align: center;
-}
-</style>
 <div id="greeter">
 	<h1>Welcome to Qalgu! </h1>
-	<p>Enter English to be translated:</p>
 </div>
-<div id='root'></div>
-
-<script type="text/babel" src={{ url_for('static', filename='js/index.js') }}></script>
-<p> Learn more about the website <a href='/about'/>here</a>.</p>
+<div id='root'>
+	<script type="text/babel" src={{url_for('static', filename='js/index.js')}}></script>
+</div>
+<div class='container' id='learnLink'>
+	<div class='row'>
+		<div class='col'>
+			<p> Learn more about the website <a href='/about'/>here</a>.</p>
+		</div>
+	</div>
+</div>
 {% endblock %}

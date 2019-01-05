@@ -1,3 +1,4 @@
+
 const URL = '/translate?q=';
 let root = document.getElementById("root");
 
@@ -5,8 +6,8 @@ class TranslateInput extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            text : null,
-            output : "Translated text will appear here!"
+            text : undefined,
+            output : "Translated Inupiaq text will appear here!"
         };
     }
     render(){
@@ -15,9 +16,9 @@ class TranslateInput extends React.Component{
 				<div class="container">
 				<div class="row">
 					<div class="col">
-						<textarea id='inputText' cols="3" rows="5" wrap='hard' class=' form-control'
+						<textarea id='inputText' cols="3" rows="5" wrap='hard' class='form-control'
 							value={this.state.text} onChange={this.handleChange}
-							placeholder={this.state.text === null ? "Enter text here!" : ""}>
+							placeholder={this.state.text === undefined ? "Enter English text here!" : ""}>
 						</textarea>
 					</div>
 					<div class="col">
@@ -56,4 +57,5 @@ class TranslateInput extends React.Component{
 		event.preventDefault();
     }
 }
+
 ReactDOM.render(<TranslateInput />, root);

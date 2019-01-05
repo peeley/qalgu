@@ -1,0 +1,22 @@
+#greeter{
+	padding-top: 45px;
+	padding-bottom: 45px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+#learnLink{
+	padding-top: 50px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+#about{
+	padding-top: 45px;
+}
+
+textarea{
+	resize: none;
+}
