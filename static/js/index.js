@@ -16,7 +16,8 @@ class TranslateInput extends React.Component{
 				<div class="container">
 				<div class="row">
 					<div class="col">
-						<textarea id='inputText' cols="3" rows="5" wrap='hard' class='form-control'
+						<label>English:</label>
+						<textarea id='inputText' rows="5" wrap='hard' class='form-control'
 							value={this.state.text} onChange={this.handleChange}
 							placeholder={this.state.text === undefined ? "Enter English text here!" : ""}>
 						</textarea>
@@ -31,6 +32,7 @@ class TranslateInput extends React.Component{
         );
     }
     handleChange = (event) => {
+		console.log(event);
         this.setState({
             text : event.target.value
         });

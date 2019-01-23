@@ -16,7 +16,6 @@ def translate():
     inputString = [string]
     translated = evaluateSeq2Seq.evaluate(inputString)
     translated = ' '.join(translated)
-    print(f'Untrimmed: {translated}')
     translated = translated.replace('@', '').replace('/end/','')
     return jsonify(translated)
 
