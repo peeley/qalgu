@@ -13,7 +13,7 @@ def index():
 @app.route("/translate", methods = ['GET'])
 def translate():
     string = request.args['q']
-    inputString = [string]
+    inputString = string
     translated = evaluateSeq2Seq.evaluate(inputString)
     translated = ' '.join(translated)
     translated = translated.replace('@', '').replace('/end/','')
