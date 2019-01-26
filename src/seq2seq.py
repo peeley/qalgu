@@ -16,30 +16,10 @@ class encoder(nn.Module):
         seqLengths = input.shape[0]
         embed = self.embedding(input)
         embed = embed.view(seqLengths, batchSize, self.hiddenSize)
-        output, hidden = self.gru(embed, hidden)
+        packed = nn.utils.rnn.pack_padded_sequence(embed, [seqLengths] * batchSize)
+        output, hidden = self.gru(packed, hidden)
+        output, _ = nn.utils.rnn.pad_packed_sequence(output)
         output = output[:, :, :self.hiddenSize] + output[:, :, self.hiddenSize:]
-        return output, hidden
-
-class decoder(nn.Module):
-    def __init__(self, outputSize, hiddenSize = 300, dropoutProb = .3, maxLength=10, numLayers = 2):
-        super(decoder, self).__init__()
-        self.hiddenSize = hiddenSize
-        self.outputSize = outputSize
-        self.maxLength = maxLength
-        self.numLayers = numLayers
-        self.dropout = nn.Dropout(dropoutProb)
-        self.embed = nn.Embedding(self.outputSize, self.hiddenSize)
-        self.lstm = nn.LSTM(self.hiddenSize, self.hiddenSize, num_layers = self.numLayers*2, batch_first = True)
-        self.linear = nn.Linear(self.hiddenSize, self.outputSize)
-        self.softmax = nn.LogSoftmax(dim = 2)
-
-    def forward(self, input, hidden, out):
-        batchSize = input.shape[0]
-        embed = self.embed(input).view(batchSize,1, self.hiddenSize)
-        out = nn.functional.relu(embed)
-        output, hidden = self.lstm(out, hidden)
-        output = self.linear(output[:])
-        output = self.softmax(output)
         return output, hidden
 
 class Attn(nn.Module):
@@ -81,7 +61,6 @@ class bahdanauDecoder(nn.Module):
         self.attn = Attn(self.hiddenSize)
         self.gru = nn.GRU(hiddenSize*2, hiddenSize, numLayers, dropout=dropoutProb)
         self.out = nn.Linear(hiddenSize, outputSize)
-        self.concat = nn.Linear(hiddenSize, outputSize)
         self.softmax = nn.LogSoftmax(dim = -1)
 
     def forward(self, input, hidden, encoderOutputs):

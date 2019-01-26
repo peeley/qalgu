@@ -1,7 +1,7 @@
 import torch, re, pickle
 import numpy as np
 
-class langModel:
+class LangModel:
     def __init__(self, name):
         self.name = name
         self.word2idx = {0:'/pad/', '/start/': 1, '/end/':2}
