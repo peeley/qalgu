@@ -2,8 +2,8 @@ let root = document.getElementById("root");
 let cookie = document.cookie;
 let username = "randoName";
 let weekFromNow = new Date(Date.now() + 60*60);
-cookie += `username=${username};cookie=ok;expires=${weekFromNow.toGMTString()};domain=qalgu.xyz;secure=;`
-console.log(`new cookie ${cookie}`);
+cookie += `name=${username}; expires=${weekFromNow.toGMTString()}; path=/;`;
+console.log(`${cookie}`);
 const URL = '/translate?q=';
 class Translator extends React.Component{
     constructor(props){
@@ -28,7 +28,7 @@ class Translator extends React.Component{
 					<div className="col">
 						<p> Inupiaq: </p>
 						<p>{this.state.output}</p>
-                        <button onClick={this.rememberTranslation}>Save Translation</button>
+                        <button className="btn btn-info" onClick={this.rememberTranslation}>Save Translation</button>
 					</div>
 				</div>
 				</div>
@@ -60,7 +60,7 @@ class Translator extends React.Component{
 		  });
     }
     rememberTranslation = (event) => {
-        cookie.push([this.state.inputText, this.state.output]);
+        cookie += `${this.state.inputText} : ${this.state.output}`;
         console.log(cookie);
         event.preventDefault();
     }
