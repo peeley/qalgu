@@ -3,20 +3,21 @@
 import torch, json, pickle 
 from src import seq2seq, langModel
 
+if torch.cuda.is_available():
+    device = torch.device('cuda')
+else:
+    device = torch.device('cpu')
+
+print(f"Using device {device}")
 print('Loading saved resources...')
-encoder = torch.load('src/models/encoder_2019_1_11.pt')
-decoder = torch.load('src/models/decoder_2019_1_11.pt')
+encoder = torch.load('src/models/encoder_2019_1_11.pt', map_location=device)
+decoder = torch.load('src/models/decoder_2019_1_11.pt', map_location=device)
 with open('src/models/source.p', 'rb') as testFile:
     testLang = pickle.load(testFile)
 with open('src/models/target.p', 'rb') as targetFile:
     targetLang = pickle.load(targetFile)
 print('Resources loaded.') 
 
-if torch.cuda.is_available():
-    device = torch.device('cuda')
-else:
-    device = torch.device('cpu')
-print(f"Using device {device}")
 
 def evaluate(rawString):
     with torch.no_grad():

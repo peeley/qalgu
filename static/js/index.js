@@ -1,12 +1,11 @@
-
-const URL = '/translate?q=';
 let root = document.getElementById("root");
 let cookie = document.cookie;
 let username = "randoName";
-// TODO : finish cookie generation for persistent translation history
-cookie = [];
-
-class TranslateInput extends React.Component{
+let weekFromNow = new Date(Date.now() + 60*60);
+cookie += `username=${username};cookie=ok;expires=${weekFromNow.toGMTString()};domain=qalgu.xyz;secure=;`
+console.log(`new cookie ${cookie}`);
+const URL = '/translate?q=';
+class Translator extends React.Component{
     constructor(props){
         super(props);
         this.state = {
@@ -17,16 +16,16 @@ class TranslateInput extends React.Component{
     render(){
         return(
 			<form id='input' onSubmit={this.submitToAPI}>
-				<div class="container">
-				<div class="row">
-					<div class="col">
+				<div className="container">
+				<div className="row">
+					<div className="col">
 						<label>English:</label>
-						<textarea id='inputText' rows="5" wrap='hard' class='form-control'
+						<textarea id='inputText' rows="5" wrap='hard' className='form-control'
 							value={this.state.inputText} onChange={this.handleChange}
 							placeholder={this.state.inputText === undefined ? "Enter English text here!" : ""}>
 						</textarea>
 					</div>
-					<div class="col">
+					<div className="col">
 						<p> Inupiaq: </p>
 						<p>{this.state.output}</p>
                         <button onClick={this.rememberTranslation}>Save Translation</button>
@@ -66,5 +65,4 @@ class TranslateInput extends React.Component{
         event.preventDefault();
     }
 }
-
-ReactDOM.render(<TranslateInput />, root);
+ReactDOM.render(<Translator />, root);
